@@ -19,11 +19,14 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Setup Gradle
+    - name: Setup Gradle Wrapper
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Build APK with Gradle
-      run: gradle assembleDebug
+    - name: Generate Gradle Wrapper files if missing
+      run: gradle wrapper --gradle-version 8.5
+
+    - name: Build APK with Gradle Wrapper
+      run: ./gradlew assembleDebug
 
     - name: Upload APK result
       uses: actions/upload-artifact@v4
